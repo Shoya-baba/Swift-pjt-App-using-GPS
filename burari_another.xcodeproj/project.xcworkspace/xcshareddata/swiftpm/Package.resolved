@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "budoux.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/griffin-stewie/BudouX.swift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "be90741f3ef9ba9e1fe6b05b6e51ad2676783f26"
+      }
+    }
+  ],
+  "version" : 2
+}
