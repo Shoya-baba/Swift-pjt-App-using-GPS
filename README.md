@@ -31,9 +31,12 @@ SwiftUI で位置情報を取得することをテーマに取り組みました
 5."Privacy-Location When In Use Usage Description"を選択
 6.Value には自由記入
 
-##　今後
+## 今後
+
 1.GPS を正常に正確に動かす。 2.逆ジオコーディングの実施。 3.背景を動画にする。
 4.bgm を流す 5.リストの要素を選択して削除する。
 6.view を整理する。
 
 ## スライド
+
+![スライド](./swift_project_%E6%8F%90%E5%87%BA%E8%B3%87%E6%96%99.pdf)
