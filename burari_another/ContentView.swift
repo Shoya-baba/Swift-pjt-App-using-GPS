@@ -15,15 +15,11 @@ struct Record: Identifiable {
     
 }
 
-
-
 struct ContentView: View {
     @State private var isEditMode = false
     @State private var selectedRows: [Record] = [] // 選択された行を保持するSet
     @StateObject private var recordStore = RecordStore()
-    @State private var path = NavigationPath()
-    
-
+    @State private var path = NavigationPath()    
     
     var body: some View {
         NavigationStack(path: $path) {
