@@ -31,7 +31,6 @@ struct ContentView: View {
             Image("背景6")
                 .resizable()
                 .ignoresSafeArea()
-            
             List {
                 ForEach(recordStore.records) { record in
                     HStack {
@@ -52,27 +51,25 @@ struct ContentView: View {
             .listStyle(InsetGroupedListStyle())
             .scrollContentBackground(.hidden)
             .navigationBarTitle(Text("怪奇一覧"), displayMode: .inline)
-            
             .navigationBarItems(
                 leading: Button(action: {}, label: {
                     Text("記憶を消す")
                 }),
                 trailing:NavigationLink(destination:AddRecord()) {
                     Text("新たな怪奇")
-                }.environmentObject(recordStore)
+                }
+                    .environmentObject(recordStore)
             )
         }
-        }.environmentObject(recordStore) // RecordStoreを環境オブジェクトとして追加
-   
+        }
+        .environmentObject(recordStore) // RecordStoreを環境オブジェクトとして追加
         }
     }
-//}
     
 struct RecordsDetail: View {
     let record: Record
 
     var body: some View {
-
             ZStack {
                 record.image
                     .resizable()
@@ -105,7 +102,6 @@ struct RecordsDetail: View {
                     , alignment: .center)
             }
         }
-
 }
 
                 
@@ -127,7 +123,7 @@ struct AddRecord: View {
     
     var body: some View {
         ZStack{
-            Image("背景7")
+            Image("背景6")
                 .resizable()
                 .ignoresSafeArea()
             Form {
@@ -143,13 +139,13 @@ struct AddRecord: View {
                     showImagePicker = true
                 }) {
                     Text("写真を選択")
+                        .foregroundColor(.black)
                 }
                 .padding()
-            } .listRowBackground(Color.brown)
+            } .listRowBackground(Color.secondary)
             }
             .listStyle(InsetGroupedListStyle())
             .scrollContentBackground(.hidden)
-           
         }
         .onAppear {
             locationManager.startUpdatingLocation()
@@ -165,10 +161,7 @@ struct AddRecord: View {
                        place = "緯度: \(location.coordinate.latitude), 経度: \(location.coordinate.longitude)"
                    }
                }
-//          GPS関係追加前付いていた
-//        }
         .navigationBarTitle("遭遇した怪奇")
-        
         .navigationBarItems(trailing:
              Button(action: {
                  let newRecord = Record(title: title, image: Image(uiImage: selectedImage ?? UIImage(named: "デフォルト画像")!), place: place, phenomenon: phenomenon, detail: detail)
@@ -188,7 +181,7 @@ struct AddRecord: View {
              ImagePicker(sourceType: imagePickerSourceType, selectedImage: $selectedImage)
          }
      }
-    //緯度と経度から都道府県を求めるコードだがCAと表示される為、外部と繋げる必要あり
+    //緯度と経度から都道府県を求めるコードだがCAと表示される為、外部と繋げる必要あり?
 //    private func reverseGeocodeLocation(location: CLLocation) {
 //        let geocoder = CLGeocoder()
 //        geocoder.reverseGeocodeLocation(location) { placemarks, error in
@@ -252,11 +245,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 class RecordStore: ObservableObject {
     @Published var records: [Record] = []
-    
     init(){
         addInitialRecords()
     }
-//
+
     private func addInitialRecords() {
             records.append(
                 Record( title: "霧の向こう側", image: Image("霧の向こう側"), place: "test", phenomenon: "淡い発光体の浮遊", detail: "歩いていると霧が深くなった。振り返るが霧で何も見えない。自然と前に進む足。すると前の方で奇妙な動きの発光を確認。発光体が近づいて思わず目を閉じる。目を開けたら見覚えのある景色。そして、夏の青空が広がっていた。")
@@ -265,6 +257,15 @@ class RecordStore: ObservableObject {
             records.append(
                 Record( title: "境目", image: Image("境目"), place: "test", phenomenon: "気がつくたら空を逆さに歩いていた", detail: "海に行った。とても青が強くて印象的な空だった。あまりにも印象的で見入っていたら、違和感を覚えた。僕は逆さに空に立っていた。海が空で空が海だった。目を覚ますと砂浜で横になっていた。")
             )
+        
+        records.append(
+            Record( title: "亡くなった山", image: Image("亡くなった山2"), place: "test", phenomenon: "昨日まであった山が消えた", detail: "私の近所には山がある。その山はちょっと特殊だ。その山は口がある。日が落ちるといつも喋っている。ある日、山が泣いていた。何故かそう感じた。そして、消えた。泣きたいのは動物だけではないのかもしれない。")
+        )
+        
+        records.append(
+            Record( title: "能面", image: Image("能面"), place: "test", phenomenon: "闇には", detail: "散歩に行った。いつもの道に知らない道祖神がいた。前には道があるのに行けない。自然と足は横道にそれていく。知らない場所にどんどん進んで行く。小さな廃神社があり、中は真っ暗だ。微かな光が神社の中を照らす。そこに能面が1つあった。気味が悪く走って来た道を辿る。どれくらい走っただろうか。視線を感じる。一瞬横目で見ると笑った顔がこちらを見ていた。やっとのことで見知った道に戻り安堵した。振り返るといつもの町が広がっていた。あの日以来、道祖神はいない。")
+        )
+        
         }
     
         func addRecord(_ record: Record) {
